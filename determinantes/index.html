@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misión: Determinantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<header class="top">
+  <div class="brand"><div class="logo" aria-hidden="true">🔎</div><div><h1>Misión: Determinantes</h1><p>Artículos · Demostrativos · Posesivos y más</p></div></div>
+  <div class="hud" id="hud" hidden><div class="pill pill-ronda"><span>Ronda</span><b id="hudRonda">1/10</b></div><div class="pill pill-puntos"><span>⭐ Puntos</span><b id="hudPuntos">0</b></div><div class="pill pill-racha"><span>🔥 Racha</span><b id="hudRacha">0</b></div></div>
+  <div class="top-actions"><a class="btn ghost" id="btnApps" href="../index.html">⬅ Misiones</a><button class="btn ghost" id="btnChuleta" type="button">📖 Chuleta</button><button class="btn ghost" id="btnSalir" type="button" hidden>🏠 Inicio</button></div>
+</header>
+<div class="progress" id="progress" hidden><div id="progressBar"></div></div>
+<main>
+  <section id="pantallaInicio" class="screen"><div class="card hero">
+    <div class="hero-mascota" aria-hidden="true">🧭</div><h2>¡Prepárate para la misión!</h2>
+    <p class="lead">Los <b>determinantes</b> acompañan al sustantivo y nos dan pistas sobre él: <i>esta casa, mis libros, tres gatos</i>… ¡Vamos a descubrirlos!</p>
+    <h3 class="sub">Elige tu misión</h3>
+    <div class="temas" id="temas">
+      <button class="tema t-todo sel" data-topic="todo" type="button" aria-pressed="true"><span class="ti">🎲</span><b>Todo mezclado</b><small>¡El gran desafío!</small></button>
+      <button class="tema t-art" data-topic="art" type="button" aria-pressed="false"><span class="ti">🏷️</span><b>Artículos</b><small>el, la, un, unas…</small></button>
+      <button class="tema t-dem" data-topic="dem" type="button" aria-pressed="false"><span class="ti">📍</span><b>Demostrativos</b><small>este, esa, aquellos…</small></button>
+      <button class="tema t-pos" data-topic="pos" type="button" aria-pressed="false"><span class="ti">🎒</span><b>Posesivos</b><small>mi, tus, nuestra…</small></button>
+      <button class="tema t-num" data-topic="num" type="button" aria-pressed="false"><span class="ti">🔢</span><b>Numerales</b><small>dos, primer, décima…</small></button>
+      <button class="tema t-ind" data-topic="ind" type="button" aria-pressed="false"><span class="ti">🧺</span><b>Indefinidos</b><small>algunos, muchos, varias…</small></button>
+      <button class="tema t-int" data-topic="int" type="button" aria-pressed="false"><span class="ti">❓</span><b>Interrogativos y exclamativos</b><small>qué, cuánto, cuántas…</small></button>
+      <button class="tema t-rel" data-topic="rel" type="button" aria-pressed="false"><span class="ti">🔗</span><b>Relativos</b><small>cuyo, cuya, cuyos…</small></button>
+    </div>
+    <div class="progreso" id="progreso" hidden></div><h3 class="sub">¿Cuántas rondas?</h3>
+    <div class="rondas" id="rondas"><button class="ronda-btn" data-rondas="5" type="button" aria-pressed="false"><b>5</b><small>Rápida</small></button><button class="ronda-btn sel" data-rondas="10" type="button" aria-pressed="true"><b>10</b><small>Normal</small></button><button class="ronda-btn" data-rondas="15" type="button" aria-pressed="false"><b>15</b><small>Larga</small></button><button class="ronda-btn" data-rondas="20" type="button" aria-pressed="false"><b>20</b><small>Experto</small></button><button class="ronda-btn" data-rondas="30" type="button" aria-pressed="false"><b>30</b><small>Maratón</small></button></div>
+    <div class="reglas"><div><span class="rb ok">+10</span> por cada acierto</div><div><span class="rb ko">−3</span> por cada error</div><div><span class="rb star">+5</span> si está perfecto</div></div>
+    <button class="btn primary big" id="btnEmpezar" type="button">¡Empezar la misión! 🚀</button><p class="record" id="record"></p>
+  </div></section>
+  <section id="pantallaJuego" class="screen" hidden><div class="card juego"><div class="modo" id="modo"></div><p class="instruccion" id="instruccion"></p><div class="frase" id="frase"></div><div id="zonaExtra"></div><div class="feedback" id="feedback" role="status" hidden></div><div class="acciones"><button class="btn primary" id="btnComprobar" type="button" disabled>✔ Comprobar</button><button class="btn secondary" id="btnSiguiente" type="button" hidden>Siguiente →</button></div></div></section>
+  <section id="pantallaFin" class="screen" hidden><div class="card fin" id="fin"></div></section>
+</main>
+<dialog id="chuleta" aria-labelledby="tituloChuleta"><div class="chuleta-head"><h2 id="tituloChuleta">📖 Chuleta de los determinantes</h2><button class="btn ghost cerrar" id="btnCerrarChuleta" type="button" aria-label="Cerrar">✕</button></div><div class="chuleta-body">
+  <section class="ch ch-adv"><h3>🔎 ¿Qué es un determinante?</h3><p>Acompaña a un sustantivo y ayuda a precisar a qué se refiere: <i><u>esta</u> casa, <u>mis</u> libros</i>.</p><p class="tip">💡 En «<i>muchos libros</i>», <i>muchos</i> acompaña a un sustantivo; en «<i>corre mucho</i>», acompaña al verbo y es un adverbio. En «<i>este libro</i>», <i>este</i> es determinante; en «<i>quiero este</i>», es pronombre.</p></section>
+  <section class="ch ch-prep"><h3>🏷️ Artículos</h3><p>Presentan al sustantivo y ayudan a saber si hablamos de algo conocido o identificable.</p><div class="ch-grid"><div><b>Determinados</b> el, la, los, las: <i>el libro</i>.</div><div><b>Indeterminados</b> un, una, unos, unas: <i>una casa</i>.</div></div><p class="tip">💡 <i>Lo</i> es un artículo neutro: <i>lo bonito</i>. No acompaña directamente a un sustantivo. <i>Al</i> = a + el y <i>del</i> = de + el.</p></section>
+  <section class="ch ch-adv"><h3>📍 Demostrativos</h3><p>Señalan distancia en el espacio o en el tiempo: <i>este libro</i> está cerca, <i>esa mesa</i> a una distancia intermedia y <i>aquella montaña</i> lejos.</p><p class="lista">este, esta, estos, estas · ese, esa, esos, esas · aquel, aquella, aquellos, aquellas</p></section>
+  <section class="ch ch-prep"><h3>🎒 Posesivos</h3><p>Indican pertenencia o relación: <i>mi mochila</i>, <i>tu hermano</i>, <i>nuestra clase</i>.</p><p class="lista">mi, mis · tu, tus · su, sus · nuestro, nuestra, nuestros, nuestras · vuestro, vuestra, vuestros, vuestras</p></section>
+  <section class="ch ch-conj"><h3>🔢 Numerales</h3><div class="ch-grid"><div><b>Cardinales</b> Expresan cantidad exacta: <i>dos gatos, cinco libros</i>.</div><div><b>Ordinales</b> Indican orden: <i>primer premio, décima página</i>.</div></div><p class="tip">💡 <i>Primero</i> y <i>tercero</i> se acortan delante de un sustantivo masculino singular: <i>primer puesto, tercer día</i>.</p></section>
+  <section class="ch ch-int"><h3>🧺 Indefinidos</h3><p>Expresan cantidad o identidad de manera imprecisa: <i>algunos amigos, muchas flores, varios libros, todo el día</i>.</p><p class="lista">algún, alguna, algunos · mucho, mucha, muchos · poco, pocos · varios, varias · todo, toda</p></section>
+  <section class="ch ch-adv"><h3>❓ Interrogativos y exclamativos</h3><p>Acompañan al sustantivo en preguntas o exclamaciones y llevan tilde: <i>¿qué libro?</i>, <i>¡cuánta gente!</i>.</p><p class="tip">💡 También pueden aparecer en preguntas indirectas: <i>No sé qué libro elegir</i>.</p></section>
+  <section class="ch ch-prep"><h3>🔗 Relativos</h3><p>Relacionan dos ideas e indican posesión: <i>Conocí a alguien <u>cuya</u> hermana canta</i>. <i>Cuya</i> concuerda con <i>hermana</i>, no con la persona mencionada antes.</p><p class="lista">cuyo · cuya · cuyos · cuyas</p></section>
+</div></dialog>
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
