@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Misiones de Lengua</title>
+<meta name="theme-color" content="#fffdf5">
+<title>Asignaturas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
@@ -14,156 +15,73 @@
     --font-body:"Nunito","Segoe UI",system-ui,sans-serif;
   }
   *{box-sizing:border-box}
-  [hidden]{display:none!important}
   html,body{margin:0;min-height:100%}
-  body{font-family:var(--font-body);color:var(--ink);min-height:100vh;overflow-x:hidden;
-    background:linear-gradient(135deg,#4338ca 0%,#7c3aed 45%,#db2777 100%);background-attachment:fixed}
-  .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .bg-blobs span{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:flotar 18s ease-in-out infinite}
-  .bg-blobs span:nth-child(1){width:420px;height:420px;background:#22d3ee;top:-120px;left:-100px}
-  .bg-blobs span:nth-child(2){width:360px;height:360px;background:#facc15;bottom:-120px;right:-60px;animation-delay:-5s}
-  .bg-blobs span:nth-child(3){width:300px;height:300px;background:#34d399;top:40%;left:60%;animation-delay:-9s}
-  .bg-blobs span:nth-child(4){width:260px;height:260px;background:#fb7185;top:55%;left:-80px;animation-delay:-13s}
-  @keyframes flotar{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-30px,30px) scale(.95)}}
-
-  main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 20px 60px}
-  header{text-align:center;color:#fff;margin-bottom:34px}
-  .logo{width:84px;height:84px;margin:0 auto 14px;border-radius:26px;display:grid;place-items:center;font-size:44px;
-    background:linear-gradient(135deg,#facc15,#fb923c);box-shadow:0 8px 0 #c2410c,0 14px 26px rgba(0,0,0,.25);transform:rotate(-6deg);animation:bote 2.6s ease-in-out infinite}
-  @keyframes bote{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(4deg) translateY(-10px)}}
-  h1{font-family:var(--font-title);font-size:48px;margin:0;text-shadow:0 4px 0 rgba(0,0,0,.18)}
-  header p{font-size:19px;font-weight:700;margin:8px 0 0;opacity:.92}
-
-  .apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-  .app{--c:#7c3aed;--c2:#db2777;position:relative;display:flex;flex-direction:column;background:#fff;border-radius:30px;overflow:hidden;color:var(--ink);text-decoration:none;
-    box-shadow:0 12px 0 rgba(30,27,75,.18),0 26px 50px rgba(30,27,75,.3);transition:transform .2s;animation:entrar .5s cubic-bezier(.3,1.5,.5,1) both}
-  .app:nth-child(2){animation-delay:.08s}.app:nth-child(3){animation-delay:.16s}
-  @keyframes entrar{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
-  a.app:hover{transform:translateY(-8px) rotate(-.6deg)}
-  .app-top{background:linear-gradient(135deg,var(--c),var(--c2));padding:26px 24px 22px;color:#fff;position:relative}
-  .app-icono{font-size:56px;line-height:1;display:inline-block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.15))}
-  a.app:hover .app-icono{animation:sacudir .5s}
-  @keyframes sacudir{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg) scale(1.1)}75%{transform:rotate(10deg) scale(1.1)}}
-  .app-top h2{font-family:var(--font-title);font-size:30px;line-height:1.15;margin:10px 0 0}
-  .app-body{padding:18px 24px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
-  .app-body p{margin:0;font-size:16px;line-height:1.45;color:var(--ink-soft);font-weight:600}
-  .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .chips span{font-size:13px;font-weight:800;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--c) 12%,#fff);color:color-mix(in srgb,var(--c) 80%,#000)}
-  .estado{font-size:14px;font-weight:800;padding:8px 12px;border-radius:14px}
-  .estado.hay{background:#fee2e2;color:#991b1b}
-  .estado.nada{background:#dcfce7;color:#166534}
-  .boton{margin-top:auto;align-self:flex-start;font-family:var(--font-title);font-weight:600;font-size:19px;color:#fff;padding:12px 26px;border-radius:16px;
-    background:linear-gradient(180deg,#4ade80,#16a34a);box-shadow:0 6px 0 #15803d}
-  .pronto{opacity:.92;cursor:default}
-  .pronto .app-top{filter:saturate(.75)}
-  .pronto .boton{background:#e2e8f0;color:#64748b;box-shadow:0 6px 0 #cbd5e1}
-  .cinta{position:absolute;top:18px;right:-34px;transform:rotate(35deg);background:#facc15;color:#713f12;font-family:var(--font-title);font-weight:700;
-    font-size:14px;padding:4px 40px;box-shadow:0 3px 0 #ca8a04;z-index:2}
-  .a-inv{--c:#6366f1;--c2:#ec4899}
-  .a-sus{--c:#0ea5e9;--c2:#10b981}
-  .a-adj{--c:#f97316;--c2:#eab308}
-  .a-det{--c:#0d9488;--c2:#0284c7}
-  footer{text-align:center;color:#fff;font-weight:700;margin-top:34px;opacity:.85}
-  @media (max-width:600px){h1{font-size:36px}}
+  body{min-height:100vh;padding:36px 20px 28px;background:#fffdf5;color:var(--ink);font-family:var(--font-body)}
+  main{max-width:1000px;margin:0 auto}
+  header{text-align:center;margin:0 auto 30px}
+  .logo{width:72px;height:72px;margin:0 auto 12px;border-radius:22px;display:grid;place-items:center;background:#facc15;font-size:38px;transform:rotate(-5deg)}
+  h1,h2,p{margin-top:0}
+  h1{font-family:var(--font-title);font-size:clamp(34px,6vw,48px);line-height:1.1;margin-bottom:8px}
+  header p{font-size:18px;font-weight:700;color:var(--ink-soft);margin-bottom:0}
+  .asignaturas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .asignatura{--color:#eab308;--tinta:#713f12;min-height:174px;width:100%;display:flex;align-items:flex-start;gap:16px;padding:22px;border:2px solid color-mix(in srgb,var(--color) 28%,#fff);border-top:7px solid var(--color);border-radius:20px;background:#fff;color:var(--ink);font:inherit;text-align:left;text-decoration:none}
+  a.asignatura{transition:transform .16s,box-shadow .16s}
+  a.asignatura:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(30,27,75,.12)}
+  a.asignatura:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .asignatura:disabled{background:#f8fafc;border-color:#e2e8f0;border-top-color:color-mix(in srgb,var(--color) 45%,#94a3b8);color:#475569;cursor:not-allowed}
+  .asignatura:disabled .icono{background:#e2e8f0;filter:grayscale(1)}
+  .asignatura:disabled .estado{color:#475569}
+  .icono{width:52px;height:52px;flex:none;display:grid;place-items:center;border-radius:15px;background:color-mix(in srgb,var(--color) 13%,#fff);font-size:29px}
+  .contenido{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .contenido strong{font-family:var(--font-title);font-size:23px;line-height:1.15}
+  .estado{font-size:14px;font-weight:800;color:var(--tinta)}
+  .a-social{--color:#dc2626;--tinta:#991b1b}
+  .a-naturales{--color:#16a34a;--tinta:#166534}
+  .a-galega{--color:#7c3aed;--tinta:#5b21b6}
+  .a-ingles{--color:#ea580c;--tinta:#9a3412}
+  .a-mates{--color:#2563eb;--tinta:#1e40af}
+  .a-lengua{--color:#eab308;--tinta:#713f12}
+  footer{text-align:center;margin-top:24px;color:var(--ink-soft);font-weight:700}
+  @media(max-width:700px){body{padding:28px 16px 24px}.asignaturas{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.asignatura{min-height:150px;padding:18px 14px;gap:12px}.icono{width:44px;height:44px;font-size:25px}.contenido strong{font-size:20px}}
+  @media(max-width:440px){.asignaturas{grid-template-columns:1fr}.asignatura{min-height:0;align-items:center}}
 </style>
 </head>
 <body>
-<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 <main>
   <header>
     <div class="logo" aria-hidden="true">📚</div>
-    <h1>Misiones de Lengua</h1>
-    <p>¿Qué quieres estudiar hoy?</p>
+    <h1>¿Qué asignatura elegimos?</h1>
+    <p>Elige qué quieres estudiar hoy</p>
   </header>
 
-  <div class="apps">
-    <!-- App disponible -->
-    <a class="app a-inv" href="palabras-invariables/index.html">
-      <div class="app-top">
-        <span class="app-icono">🧩</span>
-        <h2>Palabras invariables</h2>
-      </div>
-      <div class="app-body">
-        <p>Caza las palabras que nunca cambian y descubre de qué tipo son.</p>
-        <div class="chips"><span>Adverbios</span><span>Preposiciones</span><span>Conjunciones</span><span>Interjecciones</span></div>
-        <div class="estado" id="estadoInv" hidden></div>
-        <span class="boton">¡Jugar! 🚀</span>
-      </div>
+  <section class="asignaturas" aria-label="Asignaturas">
+    <button class="asignatura a-social" type="button" disabled>
+      <span class="icono" aria-hidden="true">🌍</span>
+      <span class="contenido"><strong>Social</strong><span class="estado">Próximamente</span></span>
+    </button>
+    <button class="asignatura a-naturales" type="button" disabled>
+      <span class="icono" aria-hidden="true">🌿</span>
+      <span class="contenido"><strong>Naturales</strong><span class="estado">Próximamente</span></span>
+    </button>
+    <button class="asignatura a-galega" type="button" disabled>
+      <span class="icono" aria-hidden="true">📖</span>
+      <span class="contenido"><strong>Lingua Galega</strong><span class="estado">Próximamente</span></span>
+    </button>
+    <button class="asignatura a-ingles" type="button" disabled>
+      <span class="icono" aria-hidden="true">💬</span>
+      <span class="contenido"><strong>Inglés</strong><span class="estado">Próximamente</span></span>
+    </button>
+    <button class="asignatura a-mates" type="button" disabled>
+      <span class="icono" aria-hidden="true">🔢</span>
+      <span class="contenido"><strong>Matemáticas</strong><span class="estado">Próximamente</span></span>
+    </button>
+    <a class="asignatura a-lengua" href="lengua/index.html">
+      <span class="icono" aria-hidden="true">✏️</span>
+      <span class="contenido"><strong>Lengua</strong><span class="estado">Ver ejercicios →</span></span>
     </a>
+  </section>
 
-    <!-- App disponible -->
-    <a class="app a-adj" href="adjetivos/index.html">
-      <div class="app-top">
-        <span class="app-icono">🎨</span>
-        <h2>Adjetivos</h2>
-      </div>
-      <div class="app-body">
-        <p>Descubre cómo son las cosas: grados, apócope, género y número.</p>
-        <div class="chips"><span>Grados</span><span>Comparativos</span><span>Superlativos</span><span>Apócope</span><span>Género y número</span></div>
-        <div class="estado" id="estadoAdj" hidden></div>
-        <span class="boton">¡Jugar! 🚀</span>
-      </div>
-    </a>
-
-    <!-- App disponible -->
-    <a class="app a-sus" href="sustantivos/index.html">
-      <div class="app-top">
-        <span class="app-icono">📦</span>
-        <h2>Sustantivos</h2>
-      </div>
-      <div class="app-body">
-        <p>Las palabras que nombran personas, animales, cosas, lugares e ideas.</p>
-        <div class="chips"><span>Común / propio</span><span>Individual / colectivo</span><span>Concreto / abstracto</span><span>Contable / incontable</span></div>
-        <div class="estado" id="estadoSus" hidden></div>
-        <span class="boton">¡Jugar! 🚀</span>
-      </div>
-    </a>
-
-    <a class="app a-det" href="determinantes/index.html">
-      <div class="app-top"><span class="app-icono">🔎</span><h2>Determinantes</h2></div>
-      <div class="app-body">
-        <p>Descubre las palabras que acompañan y precisan a los sustantivos.</p>
-        <div class="chips"><span>Artículos</span><span>Demostrativos</span><span>Posesivos</span><span>Numerales</span><span>Indefinidos</span><span>Interrogativos y exclamativos</span><span>Relativos</span></div>
-        <div class="estado" id="estadoDet" hidden></div>
-        <span class="boton">¡Jugar! 🚀</span>
-      </div>
-    </a>
-  </div>
-
-  <footer>✨ Cada misión guarda tu progreso en este navegador ✨</footer>
+  <footer>Por ahora, solo Lengua está disponible.</footer>
 </main>
-
-<script>
-  // Resumen del progreso de cada app (cada una lo guarda en localStorage)
-  function leer(clave) { try { return JSON.parse(localStorage.getItem(clave)) || {}; } catch (e) { return {}; } }
-  function flojoEn(h) {
-    return (k) => { const a = h[k] || []; return a.length >= 6 && (a.reduce((x, y) => x + y, 0) / a.length) * 100 < 60; };
-  }
-  function pintarEstado(idEl, h, grupos) {
-    if (!Object.values(h).some((a) => a && a.length)) return;
-    const flojo = flojoEn(h);
-    const nombres = grupos.filter(([, claves]) => claves.some(flojo)).map(([n]) => n);
-    const e = document.getElementById(idEl);
-    e.hidden = false;
-    if (nombres.length) { e.className = "estado hay"; e.textContent = "⚠️ Para practicar: " + nombres.join(", "); }
-    else { e.className = "estado nada"; e.textContent = "🌟 ¡Vas genial! Sigue así."; }
-  }
-  pintarEstado("estadoInv", leer("pi_hist"), [
-    ["adverbios", ["adv", "adv-L", "adv-T", "adv-M", "adv-C"]], ["preposiciones", ["prep"]],
-    ["conjunciones", ["conj"]], ["interjecciones", ["int"]],
-  ]);
-  pintarEstado("estadoAdj", leer("adj_hist"), [
-    ["reconocer adjetivos", ["ID"]], ["grados", ["P", "CS", "CI", "CG", "SA", "SR"]], ["formas irregulares", ["IR"]],
-    ["apócope", ["AP"]], ["género y número", ["GN"]],
-  ]);
-  pintarEstado("estadoSus", leer("sust_hist"), [
-    ["común/propio", ["CP"]], ["individual/colectivo", ["IC"]], ["concreto/abstracto", ["CA"]],
-    ["contable/incontable", ["CN"]], ["vocabulario de colectivos", ["VOC"]],
-  ]);
-  pintarEstado("estadoDet", leer("det_hist"), [
-    ["artículos", ["art"]], ["demostrativos", ["dem"]], ["posesivos", ["pos"]],
-    ["numerales", ["num"]], ["indefinidos", ["ind"]], ["interrogativos y exclamativos", ["int"]], ["relativos", ["rel"]],
-  ]);
-</script>
 </body>
 </html>
