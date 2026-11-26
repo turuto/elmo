@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misión: Palabras Invariables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<canvas id="confeti" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">¡A!</div>
+    <div>
+      <h1>Misión: Palabras Invariables</h1>
+      <p>Adverbios · Preposiciones · Conjunciones · Interjecciones</p>
+    </div>
+  </div>
+  <div class="hud" id="hud" hidden>
+    <div class="pill pill-ronda"><span>Ronda</span><b id="hudRonda">1/10</b></div>
+    <div class="pill pill-puntos" id="pillPuntos"><span>⭐ Puntos</span><b id="hudPuntos">0</b></div>
+    <div class="pill pill-racha"><span>🔥 Racha</span><b id="hudRacha">0</b></div>
+  </div>
+  <div class="top-actions">
+    <a class="btn ghost" id="btnApps" href="../index.html" title="Volver a todas las misiones">⬅ Misiones</a>
+    <button class="btn ghost" id="btnChuleta">📖 Chuleta</button>
+    <button class="btn ghost" id="btnSalir" hidden>🏠 Inicio</button>
+  </div>
+</header>
+<div class="progress" id="progress" hidden><div id="progressBar"></div></div>
+
+<main>
+  <!-- ============ INICIO ============ -->
+  <section id="pantallaInicio" class="screen">
+    <div class="card hero">
+      <div class="hero-mascota" aria-hidden="true">🚀</div>
+      <h2>¡Prepárate para la misión!</h2>
+      <p class="lead">Las <b>palabras invariables</b> nunca cambian: no tienen masculino ni femenino, ni singular ni plural. ¿Serás capaz de cazarlas todas?</p>
+      <h3 class="sub">Elige tu misión</h3>
+      <div class="temas" id="temas">
+        <button class="tema t-todo sel" data-topic="todo"><span class="ti">🎲</span><b>Todo mezclado</b><small>¡El gran desafío!</small></button>
+        <button class="tema t-adv" data-topic="adv"><span class="ti">🧭</span><b>Adverbios</b><small>lugar, tiempo, modo, cantidad…</small></button>
+        <button class="tema t-prep" data-topic="prep"><span class="ti">🔗</span><b>Preposiciones</b><small>a, ante, bajo, con…</small></button>
+        <button class="tema t-conj" data-topic="conj"><span class="ti">🤝</span><b>Conjunciones</b><small>y, e, ni, o, u, pero…</small></button>
+        <button class="tema t-int" data-topic="int"><span class="ti">😮</span><b>Interjecciones</b><small>¡ay!, ¡uf!, ¡bravo!…</small></button>
+      </div>
+      <div class="progreso" id="progreso" hidden></div>
+      <h3 class="sub">¿Cuántas rondas?</h3>
+      <div class="rondas" id="rondas">
+        <button class="ronda-btn" data-rondas="5"><b>5</b><small>Rápida</small></button>
+        <button class="ronda-btn sel" data-rondas="10"><b>10</b><small>Normal</small></button>
+        <button class="ronda-btn" data-rondas="15"><b>15</b><small>Larga</small></button>
+        <button class="ronda-btn" data-rondas="20"><b>20</b><small>Experto</small></button>
+        <button class="ronda-btn" data-rondas="30"><b>30</b><small>Maratón</small></button>
+      </div>
+      <div class="reglas">
+        <div><span class="rb ok">+10</span> por cada acierto</div>
+        <div><span class="rb ko">−3</span> por cada error</div>
+        <div><span class="rb star">+5</span> si la frase está perfecta</div>
+      </div>
+      <button class="btn primary big" id="btnEmpezar">¡Empezar la misión! 🚀</button>
+      <p class="record" id="record"></p>
+    </div>
+  </section>
+
+  <!-- ============ JUEGO ============ -->
+  <section id="pantallaJuego" class="screen" hidden>
+    <div class="card juego" id="cardJuego">
+      <div class="modo" id="modo"></div>
+      <p class="instruccion" id="instruccion"></p>
+      <div class="frase" id="frase"></div>
+      <div id="zonaExtra"></div>
+      <div class="feedback" id="feedback" hidden></div>
+      <div class="acciones">
+        <button class="btn primary" id="btnComprobar" disabled>✔ Comprobar</button>
+        <button class="btn secondary" id="btnSiguiente" hidden>Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIN ============ -->
+  <section id="pantallaFin" class="screen" hidden>
+    <div class="card fin" id="fin"></div>
+  </section>
+</main>
+
+<!-- ============ CHULETA ============ -->
+<dialog id="chuleta">
+  <div class="chuleta-head">
+    <h2>📖 Chuleta de palabras invariables</h2>
+    <button class="btn ghost cerrar" id="btnCerrarChuleta" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="chuleta-body">
+    <section class="ch ch-adv">
+      <h3>🧭 Adverbios</h3>
+      <p>Acompañan al verbo, a un adjetivo o a otro adverbio y dicen <i>dónde, cuándo, cómo</i> o <i>cuánto</i>.</p>
+      <div class="ch-grid">
+        <div><b>📍 Lugar</b> aquí, ahí, allí, allá, cerca, lejos, arriba, abajo, delante, detrás, dentro, fuera, encima, debajo, enfrente, alrededor</div>
+        <div><b>⏰ Tiempo</b> hoy, ayer, mañana, anoche, ahora, antes, después, luego, pronto, tarde, temprano, siempre, ya, enseguida</div>
+        <div><b>🎨 Modo</b> bien, mal, así, despacio, deprisa, mejor, peor y muchos acabados en <i>-mente</i> (rápidamente)</div>
+        <div><b>⚖️ Cantidad</b> muy, mucho, poco, bastante, demasiado, más, menos, tan, tanto, casi</div>
+        <div><b>👍 Afirmación</b> sí, también, claro</div>
+        <div><b>👎 Negación</b> no, tampoco</div>
+        <div><b>🤔 Duda</b> quizás, tal vez, probablemente, acaso</div>
+      </div>
+      <p class="tip">💡 Varias palabras juntas pueden funcionar como un adverbio: <i>de repente, a menudo, a lo lejos</i> (locuciones adverbiales).</p>
+    </section>
+    <section class="ch ch-prep">
+      <h3>🔗 Preposiciones</h3>
+      <p>Unen palabras y van delante de un sustantivo o pronombre.</p>
+      <p class="lista">a · ante · bajo · con · contra · de · desde · durante · en · entre · hacia · hasta · mediante · para · por · según · sin · sobre · tras</p>
+      <p class="tip">💡 <b>al</b> = a + el y <b>del</b> = de + el: ¡llevan una preposición dentro!</p>
+    </section>
+    <section class="ch ch-conj">
+      <h3>🤝 Conjunciones</h3>
+      <p>Unen palabras u oraciones.</p>
+      <p class="lista">y · e · ni · o · u · pero · aunque · porque · si</p>
+      <p class="tip">💡 <b>y → e</b> delante de sonido «i»: <i>padre e hijo</i>. <b>o → u</b> delante de sonido «o»: <i>siete u ocho</i>.<br>💡 <b>si</b> (sin tilde) es conjunción; <b>sí</b> (con tilde) es adverbio de afirmación.</p>
+    </section>
+    <section class="ch ch-int">
+      <h3>😮 Interjecciones</h3>
+      <p>Expresan emociones, sensaciones o llamadas. Suelen ir entre signos de exclamación.</p>
+      <p class="lista">¡ay! · ¡oh! · ¡ah! · ¡eh! · ¡uf! · ¡bah! · ¡puaj! · ¡ups! · ¡hala! · ¡bravo! · ¡olé! · ¡vaya! · ¡hola! · ¡ojalá! · ¡caramba! · ¡socorro!</p>
+    </section>
+  </div>
+</dialog>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

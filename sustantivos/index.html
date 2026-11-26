@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misión: Sustantivos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<canvas id="confeti" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">📦</div>
+    <div>
+      <h1>Misión: Sustantivos</h1>
+      <p>Común/propio · Individual/colectivo · Concreto/abstracto · Contable/incontable</p>
+    </div>
+  </div>
+  <div class="hud" id="hud" hidden>
+    <div class="pill pill-ronda"><span>Ronda</span><b id="hudRonda">1/10</b></div>
+    <div class="pill pill-puntos" id="pillPuntos"><span>⭐ Puntos</span><b id="hudPuntos">0</b></div>
+    <div class="pill pill-racha"><span>🔥 Racha</span><b id="hudRacha">0</b></div>
+  </div>
+  <div class="top-actions">
+    <a class="btn ghost" id="btnApps" href="../index.html" title="Volver a todas las misiones">⬅ Misiones</a>
+    <button class="btn ghost" id="btnChuleta">📖 Chuleta</button>
+    <button class="btn ghost" id="btnSalir" hidden>🏠 Inicio</button>
+  </div>
+</header>
+<div class="progress" id="progress" hidden><div id="progressBar"></div></div>
+
+<main>
+  <!-- ============ INICIO ============ -->
+  <section id="pantallaInicio" class="screen">
+    <div class="card hero">
+      <div class="hero-mascota" aria-hidden="true">🕵️</div>
+      <h2>¡Prepárate para la misión!</h2>
+      <p class="lead">Los <b>sustantivos</b> nombran personas, animales, cosas, lugares e ideas. ¿Sabrás clasificarlos todos… y descubrir los nombres colectivos?</p>
+      <h3 class="sub">Elige tu misión</h3>
+      <div class="temas temas-6" id="temas">
+        <button class="tema t-todo sel" data-topic="todo"><span class="ti">🎲</span><b>Todo mezclado</b><small>¡El gran desafío!</small></button>
+        <button class="tema t-cp" data-topic="cp"><span class="ti">🏷️</span><b>Común / Propio</b><small>niño · Lucía</small></button>
+        <button class="tema t-ic" data-topic="ic"><span class="ti">🐑</span><b>Individual / Colectivo</b><small>oveja · rebaño</small></button>
+        <button class="tema t-ca" data-topic="ca"><span class="ti">💭</span><b>Concreto / Abstracto</b><small>mesa · alegría</small></button>
+        <button class="tema t-cn" data-topic="cn"><span class="ti">🔢</span><b>Contable / Incontable</b><small>libro · agua</small></button>
+        <button class="tema t-voc" data-topic="voc"><span class="ti">📚</span><b>Colectivos</b><small>¿cómo se llama un conjunto de…?</small></button>
+      </div>
+      <div class="progreso" id="progreso" hidden></div>
+      <h3 class="sub">¿Cuántas rondas?</h3>
+      <div class="rondas" id="rondas">
+        <button class="ronda-btn" data-rondas="5"><b>5</b><small>Rápida</small></button>
+        <button class="ronda-btn sel" data-rondas="10"><b>10</b><small>Normal</small></button>
+        <button class="ronda-btn" data-rondas="15"><b>15</b><small>Larga</small></button>
+        <button class="ronda-btn" data-rondas="20"><b>20</b><small>Experto</small></button>
+        <button class="ronda-btn" data-rondas="30"><b>30</b><small>Maratón</small></button>
+      </div>
+      <div class="reglas">
+        <div><span class="rb ok">+10</span> por cada acierto</div>
+        <div><span class="rb ko">−3</span> por cada error</div>
+        <div><span class="rb star">+5</span> si está perfecto</div>
+      </div>
+      <button class="btn primary big" id="btnEmpezar">¡Empezar la misión! 🚀</button>
+      <p class="record" id="record"></p>
+    </div>
+  </section>
+
+  <!-- ============ JUEGO ============ -->
+  <section id="pantallaJuego" class="screen" hidden>
+    <div class="card juego" id="cardJuego">
+      <div class="modo" id="modo"></div>
+      <p class="instruccion" id="instruccion"></p>
+      <div class="frase" id="frase"></div>
+      <div id="zonaExtra"></div>
+      <div class="feedback" id="feedback" hidden></div>
+      <div class="acciones">
+        <button class="btn primary" id="btnComprobar" disabled>✔ Comprobar</button>
+        <button class="btn secondary" id="btnSiguiente" hidden>Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIN ============ -->
+  <section id="pantallaFin" class="screen" hidden>
+    <div class="card fin" id="fin"></div>
+  </section>
+</main>
+
+<!-- ============ CHULETA ============ -->
+<dialog id="chuleta">
+  <div class="chuleta-head">
+    <h2>📖 Chuleta de los sustantivos</h2>
+    <button class="btn ghost cerrar" id="btnCerrarChuleta" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="chuleta-body">
+    <section class="ch ch-cp">
+      <h3>🏷️ Común / Propio</h3>
+      <div class="ch-grid">
+        <div><b>Común</b> Nombra cualquier persona, animal o cosa de su clase: <i>niño, río, ciudad</i>.</div>
+        <div><b>Propio</b> Nombra a uno en concreto para distinguirlo. ¡Siempre con mayúscula! <i>Lucía, Ebro, Madrid</i>.</div>
+      </div>
+    </section>
+    <section class="ch ch-ic">
+      <h3>🐑 Individual / Colectivo</h3>
+      <div class="ch-grid">
+        <div><b>Individual</b> En singular nombra a un solo ser: <i>oveja, árbol, músico</i>.</div>
+        <div><b>Colectivo</b> En singular nombra un conjunto: <i>rebaño, bosque, orquesta</i>.</div>
+      </div>
+      <p class="tip">💡 Truco: pregúntate «¿esta palabra, en singular, ya son muchos?». Un rebaño = muchas ovejas.</p>
+    </section>
+    <section class="ch ch-ca">
+      <h3>💭 Concreto / Abstracto</h3>
+      <div class="ch-grid">
+        <div><b>Concreto</b> Se puede percibir con los sentidos (ver, tocar, oler…): <i>mesa, agua, aire</i>.</div>
+        <div><b>Abstracto</b> Ideas, sentimientos o cualidades que no se pueden percibir: <i>alegría, bondad, idea</i>.</div>
+      </div>
+    </section>
+    <section class="ch ch-cn">
+      <h3>🔢 Contable / Incontable</h3>
+      <div class="ch-grid">
+        <div><b>Contable</b> Se puede contar con números: <i>un libro, dos libros</i>.</div>
+        <div><b>Incontable</b> No se cuenta, se mide: <i>agua, arena, leche</i> (decimos «un vaso de agua», no «tres aguas»).</div>
+      </div>
+      <p class="tip">💡 Esta clasificación se usa con los nombres comunes.</p>
+    </section>
+    <section class="ch ch-voc">
+      <h3>📚 Nombres colectivos</h3>
+      <div class="ch-col">
+        <span><b>rebaño</b> ovejas</span><span><b>enjambre</b> abejas</span><span><b>jauría</b> perros</span><span><b>manada</b> lobos</span>
+        <span><b>bandada</b> pájaros</span><span><b>banco</b> peces</span><span><b>piara</b> cerdos</span><span><b>flota</b> barcos</span>
+        <span><b>archipiélago</b> islas</span><span><b>constelación</b> estrellas</span><span><b>cordillera</b> montañas</span><span><b>bosque</b> árboles</span>
+        <span><b>pinar</b> pinos</span><span><b>olivar</b> olivos</span><span><b>viñedo</b> vides</span><span><b>alameda</b> álamos</span>
+        <span><b>robledal</b> robles</span><span><b>naranjal</b> naranjos</span><span><b>ejército</b> soldados</span><span><b>orquesta</b> músicos</span>
+        <span><b>coro</b> cantantes</span><span><b>tripulación</b> marineros</span><span><b>equipo</b> jugadores</span><span><b>alumnado</b> alumnos</span>
+        <span><b>profesorado</b> profesores</span><span><b>vecindario</b> vecinos</span><span><b>clientela</b> clientes</span><span><b>público</b> espectadores</span>
+        <span><b>multitud</b> personas</span><span><b>vajilla</b> platos y tazas</span><span><b>cubertería</b> cubiertos</span><span><b>mobiliario</b> muebles</span>
+        <span><b>dentadura</b> dientes</span><span><b>abecedario</b> letras</span><span><b>racimo</b> uvas</span><span><b>ramo</b> flores</span>
+        <span><b>baraja</b> cartas</span><span><b>biblioteca</b> libros</span><span><b>vocabulario</b> palabras</span><span><b>pelotón</b> ciclistas</span>
+        <span><b>cañaveral</b> cañas</span><span><b>pedregal</b> piedras</span><span><b>hojarasca</b> hojas secas</span><span><b>yeguada</b> caballos</span>
+      </div>
+    </section>
+  </div>
+</dialog>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

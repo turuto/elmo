@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misión: Adjetivos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="tema-adjetivos">
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<canvas id="confeti" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">🎨</div>
+    <div>
+      <h1>Misión: Adjetivos</h1>
+      <p>Grados · Apócope · Género y número</p>
+    </div>
+  </div>
+  <div class="hud" id="hud" hidden>
+    <div class="pill pill-ronda"><span>Ronda</span><b id="hudRonda">1/10</b></div>
+    <div class="pill pill-puntos" id="pillPuntos"><span>⭐ Puntos</span><b id="hudPuntos">0</b></div>
+    <div class="pill pill-racha"><span>🔥 Racha</span><b id="hudRacha">0</b></div>
+  </div>
+  <div class="top-actions">
+    <a class="btn ghost" id="btnApps" href="../index.html" title="Volver a todas las misiones">⬅ Misiones</a>
+    <button class="btn ghost" id="btnChuleta">📖 Chuleta</button>
+    <button class="btn ghost" id="btnSalir" hidden>🏠 Inicio</button>
+  </div>
+</header>
+<div class="progress" id="progress" hidden><div id="progressBar"></div></div>
+
+<main>
+  <!-- ============ INICIO ============ -->
+  <section id="pantallaInicio" class="screen">
+    <div class="card hero">
+      <div class="hero-mascota" aria-hidden="true">🦸</div>
+      <h2>¡Prepárate para la misión!</h2>
+      <p class="lead">Los <b>adjetivos</b> nos dicen cómo son las cosas: <i>alto, rapidísimo, más listo que</i>… ¿Sabrás descubrir sus grados y sus secretos?</p>
+      <h3 class="sub">Elige tu misión</h3>
+      <div class="temas" id="temas">
+        <button class="tema t-todo sel" data-topic="todo"><span class="ti">🎲</span><b>Todo mezclado</b><small>¡El gran desafío!</small></button>
+        <button class="tema t-id" data-topic="id"><span class="ti">🔍</span><b>¿Es adjetivo?</b><small>encuentra los adjetivos</small></button>
+        <button class="tema t-gr" data-topic="gr"><span class="ti">📶</span><b>Grados</b><small>positivo, comparativo, superlativo</small></button>
+        <button class="tema t-ap" data-topic="ap"><span class="ti">✂️</span><b>Apócope</b><small>buen, mal, gran, primer…</small></button>
+        <button class="tema t-gn" data-topic="gn"><span class="ti">👫</span><b>Género y número</b><small>concordancia y terminaciones</small></button>
+      </div>
+      <div class="progreso" id="progreso" hidden></div>
+      <h3 class="sub">¿Cuántas rondas?</h3>
+      <div class="rondas" id="rondas">
+        <button class="ronda-btn" data-rondas="5"><b>5</b><small>Rápida</small></button>
+        <button class="ronda-btn sel" data-rondas="10"><b>10</b><small>Normal</small></button>
+        <button class="ronda-btn" data-rondas="15"><b>15</b><small>Larga</small></button>
+        <button class="ronda-btn" data-rondas="20"><b>20</b><small>Experto</small></button>
+        <button class="ronda-btn" data-rondas="30"><b>30</b><small>Maratón</small></button>
+      </div>
+      <div class="reglas">
+        <div><span class="rb ok">+10</span> por cada acierto</div>
+        <div><span class="rb ko">−3</span> por cada error</div>
+        <div><span class="rb star">+5</span> si está perfecto</div>
+      </div>
+      <button class="btn primary big" id="btnEmpezar">¡Empezar la misión! 🚀</button>
+      <p class="record" id="record"></p>
+    </div>
+  </section>
+
+  <!-- ============ JUEGO ============ -->
+  <section id="pantallaJuego" class="screen" hidden>
+    <div class="card juego" id="cardJuego">
+      <div class="modo" id="modo"></div>
+      <p class="instruccion" id="instruccion"></p>
+      <div class="frase" id="frase"></div>
+      <div id="zonaExtra"></div>
+      <div class="feedback" id="feedback" hidden></div>
+      <div class="acciones">
+        <button class="btn primary" id="btnComprobar" disabled>✔ Comprobar</button>
+        <button class="btn secondary" id="btnSiguiente" hidden>Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIN ============ -->
+  <section id="pantallaFin" class="screen" hidden>
+    <div class="card fin" id="fin"></div>
+  </section>
+</main>
+
+<!-- ============ CHULETA ============ -->
+<dialog id="chuleta">
+  <div class="chuleta-head">
+    <h2>📖 Chuleta de los adjetivos</h2>
+    <button class="btn ghost cerrar" id="btnCerrarChuleta" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="chuleta-body">
+    <section class="ch ch-id">
+      <h3>🔍 ¿Qué es un adjetivo?</h3>
+      <p>Es la palabra que dice <b>cómo es</b> o <b>cómo está</b> un sustantivo: <i>perro <u>pequeño</u></i>, <i>la sopa está <u>fría</u></i>.</p>
+      <p class="tip">💡 Truco: si puedes ponerlo con «muy» o con «-ísimo» (<i>muy alto, altísimo</i>), seguramente es un adjetivo.<br>💡 Los determinantes (<i>el, mi, este, unos…</i>) no cuentan como adjetivos en este juego.</p>
+    </section>
+    <section class="ch ch-gr">
+      <h3>📶 Grados del adjetivo</h3>
+      <div class="ch-grid">
+        <div><b>Positivo</b> La cualidad, sin más: <i>alto</i></div>
+        <div><b>Comparativo de superioridad</b> <i>más alto que</i></div>
+        <div><b>Comparativo de inferioridad</b> <i>menos alto que</i></div>
+        <div><b>Comparativo de igualdad</b> <i>tan alto como</i></div>
+        <div><b>Superlativo absoluto</b> <i>altísimo</i> o <i>muy alto</i></div>
+        <div><b>Superlativo relativo</b> <i>el más alto de</i> / <i>el menos alto de</i> (destaca dentro de un grupo)</div>
+      </div>
+    </section>
+    <section class="ch ch-ir">
+      <h3>⭐ Formas irregulares</h3>
+      <div class="ch-tabla">
+        <div class="th">Positivo</div><div class="th">Comparativo</div><div class="th">Superlativo culto</div>
+        <div>bueno</div><div>mejor</div><div>óptimo</div>
+        <div>malo</div><div>peor</div><div>pésimo</div>
+        <div>grande</div><div>mayor</div><div>máximo</div>
+        <div>pequeño</div><div>menor</div><div>mínimo</div>
+      </div>
+      <p class="tip">💡 <b>mejor, peor, mayor, menor</b> son comparativos de <b>superioridad</b>: llevan el «más» escondido (<i>menor = más pequeño</i>).<br>💡 Cuidado: en «canta <u>mejor</u>» acompaña a un verbo, así que es un adverbio.</p>
+    </section>
+    <section class="ch ch-ap">
+      <h3>✂️ Apócope</h3>
+      <p>Algunos adjetivos pierden su final cuando van <b>delante</b> de un sustantivo <b>singular</b>:</p>
+      <p class="lista">bueno → buen · malo → mal · grande → gran · primero → primer · tercero → tercer · santo → san</p>
+      <p class="tip">💡 <i>buen, mal, primer, tercer</i> solo en <b>masculino</b>: <i>buen amigo</i>, pero <i>buena amiga</i>.<br>💡 <i>gran</i> sirve para los dos: <i>gran día, gran idea</i>.<br>💡 Si va detrás o en plural, no cambia: <i>un amigo bueno, buenos amigos</i>.<br>💡 Excepción: <i>Santo Tomás, Santo Domingo, Santo Toribio, Santo Tomé</i>.</p>
+    </section>
+    <section class="ch ch-gn">
+      <h3>👫 Género y número</h3>
+      <p>El adjetivo <b>concuerda</b> con el sustantivo en género y número: <i>gato negro, gatas negras</i>.</p>
+      <div class="ch-grid">
+        <div><b>Dos terminaciones</b> Cambian en femenino: <i>alto/alta, trabajador/trabajadora, español/española</i></div>
+        <div><b>Una terminación</b> Igual en los dos géneros: <i>feliz, verde, amable, azul, inteligente</i></div>
+      </div>
+      <p class="tip">💡 Si acompaña a un masculino y un femenino a la vez, va en masculino plural: <i>el coche y la moto son rápidos</i>.</p>
+    </section>
+  </div>
+</dialog>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
